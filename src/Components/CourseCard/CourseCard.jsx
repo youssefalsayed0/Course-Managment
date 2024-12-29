@@ -26,7 +26,7 @@ export default function CourseCard() {
                 </select>
               </div>
               <div className="col-md-3 col-lg-2 ms-auto">
-            <Link className="btn btn-dark rounded-pill text-white">Add Course</Link>
+            <Link to="add"className="btn btn-dark rounded-pill text-white">Add Course</Link>
           </div>
           
 

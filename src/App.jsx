@@ -6,12 +6,15 @@ import Courses from './views/Courses/Courses';
 import CourseForm from './Components/CourseForm/CourseForm';
 import CourseCard from './Components/CourseCard/CourseCard';
 import CourseDetails from './Components/CourseDetails/CourseDetails';
+import Dashboard from './views/Dashboard/Dashboard';
 
 
 const router = createBrowserRouter([
   {
-    path: "/", element: <Layout />, children: [
-
+  path:"/", element: <Layout />, children: [
+    {
+      path: "" , element : <Dashboard/>
+    },
       {
         path: "courses", element: <Courses />, children: [
           {
@@ -25,6 +28,7 @@ const router = createBrowserRouter([
           }
         ]
       },
+   
     ]
   },
 

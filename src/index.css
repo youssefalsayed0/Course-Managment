@@ -91,3 +91,7 @@ header {
 .course-card .events-icons {
 	cursor: pointer;
 }
+
+.CourseDetails .data-icons i {
+cursor: pointer;
+}
