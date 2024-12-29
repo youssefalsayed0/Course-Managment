@@ -1,13 +1,30 @@
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 767px) {
   
+    .side-nav {
+        left: -300px;
+    }
+    .slide {
+        left: 0px;
+        transition: var(--main-transition);
+    }
+    .close{
+        display: inline-block;
+    }
+
+
+    .main {
+        width: 100% !important;
+        margin-left: unset !important;
+    }
+    
+    header {
+        width: 100% !important;
+        margin-left: unset !important;
+    }
+    
     .default {
         width: 100% !important;
         margin-left: unset !important;
-     
-    }
-    .close{
-     
-        display: inline-block;
     }
     
 }

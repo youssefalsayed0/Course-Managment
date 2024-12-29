@@ -32,7 +32,7 @@ body {
 	position: fixed;
 	height: 100%;
 	top: 0;
-	left: -300px;
+	left: 0;
 	transition: var(--main-transition);
 	z-index: 1000;
 }
@@ -41,35 +41,35 @@ body {
 	padding: 20px 0;
 }
 .close{
-	top: 20px;
-	right: -50px;
+	top: 8px;
+	right: 15px;
 	cursor: pointer;
-	color: black;
-	font-size: 30px;
+	color: rgb(255, 255, 255);
+	font-size: 22px;
 	display: none;
 }
 .main {
-	width: 100% ;
-	margin-left: unset ;
+	width: calc(100% - var(--side-width)) !important;
+	margin-left: var(--side-width) !important;
 	transition: var(--main-transition);
 	
 }
 
 header {
-	width: 100% ;
-	margin-left: unset ;
+	width: calc(100% - var(--side-width)) !important;
+	margin-left: var(--side-width) !important;
 	transition: var(--main-transition);
 	z-index: 999!important;
 }
 
 .default {
-	width: calc(100% - var(--side-width)) !important;
-	margin-left: var(--side-width) !important;
+	width: 100% !important;
+	margin-left: unset !important;
 	transition: var(--main-transition);
 }
 
 .slide {
-	left: 0;
+	left: -300px;
 	transition: var(--main-transition);
 }
 .course-card .image {
