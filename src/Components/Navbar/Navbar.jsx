@@ -19,6 +19,9 @@ export default function Navbar({ toggleClasses , isActive }) {
 						<Link to="account">
 							<i className="bi bi-person-circle fs-4"></i>
 						</Link>
+ 
+                       <span></span>
+						
 					</div>
 				</div>
 			</div>
