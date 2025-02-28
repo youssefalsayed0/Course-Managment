@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import * as Yup from "yup";
 import { GroupContext } from "../../context/GroupContext";
 import axios from "axios";
+import toast from "react-hot-toast"; // Import react-hot-toast
 
 export default function CourseForm() {
     const { groupsData } = useContext(GroupContext);
@@ -10,42 +11,43 @@ export default function CourseForm() {
 
     // Validation Schema
     const validationSchema = Yup.object().shape({
-        code: Yup.string().required("Course Code is required"),
-        name: Yup.string().required("Course Name is required"),
+        code: Yup.string()
+            .required("Course Code is required")
+            .min(5, "Course Code must be at least 5 characters")
+            .max(10, "Course Code must be at most 10 characters"),
+        name: Yup.string()
+            .required("Course Name is required")
+            .min(5, "Course Name must be at least 5 characters")
+            .max(100, "Course Name must be at most 100 characters"),
         groupId: Yup.string().required("Please select a group"),
-        avatarType: Yup.string().optional(),
-        active: Yup.boolean().required("Active status is required"),
     });
 
     // Handle form submission
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const handleSubmit = async (values, { resetForm, setSubmitting }) => {
         try {
-            // Create a FormData object to handle file upload
+            // Create FormData object for multipart/form-data
             const formData = new FormData();
-            formData.append("code", values.code);
-            formData.append("name", values.name);
-            formData.append("groupId", values.groupId);
-            formData.append("avatarType", values.avatarType || "");
-            formData.append("active", values.active);
-
+            formData.append("code", values.code); // Add code as query parameter
+            formData.append("name", values.name); // Add name as query parameter
+            formData.append("groupId", values.groupId); // Add groupId as query parameter
             if (avatarFile) {
-                formData.append("avatar", avatarFile); // Append the file to FormData
+                formData.append("avatar", avatarFile); // Add avatar file
             }
-
-            console.log("Submitting payload:", formData);
-
             // Send the payload to the API
             const response = await axios.post("http://147.93.85.227:8087/ems/api/v1/courses", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data", // Set content type for file upload
                 },
             });
-
-            console.log("API Response:", response.data);
-            alert("Course created successfully!");
+            // Show success toast
+            toast.success("Course created successfully!");
+            // Reset the form
+            resetForm();
+            setAvatarFile(null); // Clear the selected file
         } catch (error) {
             console.error("Error creating course:", error);
-            alert("Failed to create course. Please try again.");
+            // Show error toast
+            toast.error("Failed to create course. Please try again.");
         } finally {
             setSubmitting(false); // Reset submitting state
         }
@@ -66,8 +68,6 @@ export default function CourseForm() {
                             code: "",
                             name: "",
                             groupId: "",
-                            avatarType: "",
-                            active: true,
                         }}
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}>
@@ -77,14 +77,26 @@ export default function CourseForm() {
 
                                 {/* Course Code */}
                                 <div className="form-floating">
-                                    <Field type="text" className="form-control" id="code" name="code" placeholder="Course Code" />
+                                    <Field
+                                        type="text"
+                                        className="form-control"
+                                        id="code"
+                                        name="code"
+                                        placeholder="Course Code"
+                                    />
                                     <label htmlFor="code">Course Code</label>
                                     <ErrorMessage name="code" component="div" className="text-danger mt-1" />
                                 </div>
 
                                 {/* Course Name */}
                                 <div className="form-floating mt-4">
-                                    <Field type="text" className="form-control" id="name" name="name" placeholder="Course Name" />
+                                    <Field
+                                        type="text"
+                                        className="form-control"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Course Name"
+                                    />
                                     <label htmlFor="name">Course Name</label>
                                     <ErrorMessage name="name" component="div" className="text-danger mt-1" />
                                 </div>
@@ -115,27 +127,6 @@ export default function CourseForm() {
                                         accept=".png,.jpg,.jpeg,.svg" // Restrict file types
                                         onChange={handleFileChange} // Handle file selection
                                     />
-                                </div>
-
-                                {/* Avatar Type (Optional) */}
-                                <div className="mt-4">
-                                    <Field as="select" className="form-select py-3" name="avatarType">
-                                        <option value="">Select Avatar Type</option>
-                                        <option value="png">PNG</option>
-                                        <option value="jpg">JPG</option>
-                                        <option value="jpeg">JPEG</option>
-                                        <option value="svg">SVG</option>
-                                    </Field>
-                                    <ErrorMessage name="avatarType" component="div" className="text-danger mt-1" />
-                                </div>
-
-                                {/* Active Status */}
-                                <div className="mt-4">
-                                    <label>
-                                        <Field type="checkbox" name="active" className="me-2" />
-                                        Active
-                                    </label>
-                                    <ErrorMessage name="active" component="div" className="text-danger mt-1" />
                                 </div>
 
                                 {/* Submit Button */}

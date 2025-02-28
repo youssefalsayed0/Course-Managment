@@ -17,11 +17,11 @@ export default function Sidenav({ isActive ,toggleClasses }) {
 				</li>
 				<li className="border-bottom border-1">
 					<i className="bi bi-person fs-5 me-2" />
-					<Link to="">Admins</Link>
+					<Link to="/admins">Admins</Link>
 				</li>
 				<li className="border-bottom border-1">
 					<i className="bi bi-person-raised-hand fs-5 me-2" />
-					<Link to="">Students</Link>
+					<Link to="/students">Students</Link>
 				</li>
 				<li className="border-bottom border-1">
 					<i className="bi bi-journal fs-5 me-2" />
