@@ -59,11 +59,9 @@ export default function AddStudent() {
 										<div className="col-12">
 											{/* Group Selection */}
 											<div className="mb-3">
-												<select className="form-select py-3" name="groupId" >
+												<select className="form-select py-3" name="groupId">
 													<option value="">Select a group</option>
-														<option >
-														group
- 														</option>
+													<option>group</option>
 												</select>
 											</div>
 										</div>
